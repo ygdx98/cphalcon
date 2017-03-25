@@ -48,6 +48,8 @@ No pledges yet.
 
 [Pledge](https://www.patreon.com/bePatron?u=4653615&rid=1185010)
 
+- Pavel (copist) Volyntsev
+- Vasily Stadnik
 - Gregory Burns
 - Simon Schoenenberger
 - Jesse Forrest
