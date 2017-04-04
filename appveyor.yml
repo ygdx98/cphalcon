@@ -57,18 +57,18 @@ install:
         If ($env:PLATFORM -eq 'x86') {
             If ($env:PHP_TYPE -Match "nts-Win32") {
                 $env:RELEASE_FOLDER="Release"
-                $env:PHP_CONFIGURE_FLAGS="--disable-all --enable-cli --enable-phalcon=shared --disable-zts"
+                $env:PHP_CONFIGURE_FLAGS="--disable-all --enable-cli --enable-phalcon=shared --enable-pdo --disable-zts"
             } Else {
                 $env:RELEASE_FOLDER="Release_TS"
-                $env:PHP_CONFIGURE_FLAGS="--disable-all --enable-cli --enable-phalcon=shared"
+                $env:PHP_CONFIGURE_FLAGS="--disable-all --enable-cli --enable-phalcon=shared --enable-pdo"
             }
         } else {
             If ($env:PHP_TYPE -Match "nts-Win32") {
                 $env:RELEASE_FOLDER="x64\Release"
-                $env:PHP_CONFIGURE_FLAGS="--disable-all --enable-cli --enable-phalcon=shared --disable-zts"
+                $env:PHP_CONFIGURE_FLAGS="--disable-all --enable-cli --enable-phalcon=shared --enable-pdo --disable-zts"
             } Else {
                 $env:RELEASE_FOLDER="x64\Release_TS"
-                $env:PHP_CONFIGURE_FLAGS="--disable-all --enable-cli --enable-phalcon=shared"
+                $env:PHP_CONFIGURE_FLAGS="--disable-all --enable-cli --enable-phalcon=shared --enable-pdo"
             }
         }
         If ($env:PHP_VC -eq '11') {
@@ -125,7 +125,7 @@ install:
     - echo Preparing extension to build
     # ==================================================
     - mkdir %PHP_SRC%\ext\phalcon
-    - xcopy /s /q %APPVEYOR_BUILD_FOLDER%\build\php%PHP_MAJOR%\%PHALCON_ARCH%bits\*.* %PHP_SRC%\ext\phalcon
+    - xcopy /s /q %APPVEYOR_BUILD_FOLDER%\ext\*.* %PHP_SRC%\ext\phalcon
     # ==================================================
     - echo Build PHP with enabled Phalcon
     # ==================================================
@@ -176,6 +176,7 @@ on_failure:
 
 on_success:
     - 'dir'
+    - 'dir %PHP_SRC%\%RELEASE_FOLDER%'
 
 artifacts:
     - path: '.\*.zip'
